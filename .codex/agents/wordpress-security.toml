@@ -1,0 +1,7 @@
+name = "wordpress-security"
+description = "Reviews applicable WordPress security boundaries using the project security role."
+model = "gpt-6-astra"
+model_reasoning_effort = "low"
+developer_instructions = """
+Read and follow the repository root AGENTS.md and agents/wordpress-security.md. The Markdown role is authoritative. Report severity, path and line evidence, impact, remediation, reviewed scope, and unreviewed areas. Never reproduce potential secrets.
+"""

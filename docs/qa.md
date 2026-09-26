@@ -1,0 +1,9 @@
+# Local QA
+
+Run `pwsh -NoProfile -File scripts/check-local-readiness.ps1` after editing agent, workflow, or QA guidance and before reporting readiness. It uses built-in PowerShell, Git, and Python only; it installs no packages and makes no network requests.
+
+The checker verifies required local files, exact TOML keys/references with Python stdlib `tomllib` when importable, its own PowerShell parse, Git whitespace, changed-path scope, and credential-like assignments in approved files. Secret findings show path and severity only. This pattern scan is not a secrets certification and cannot detect every encoding or secret form.
+
+Both PHP targets are `wp-content/plugins/webotto-hello/webotto-hello.php` and `wp-content/plugins/webotto-mcp-adapter/webotto-mcp-adapter.php`. Run `php -l` on each when PHP is present. Here PHP, Composer, WP-CLI, a local WordPress runtime, and a test suite are absent: both lints are `BLOCKED`; automated suite discovery is `NOT FOUND`; applicable smoke/API/regression coverage is `NOT RUN (BLOCKED: no local WordPress/test harness)`. No URL is contacted. Do not install a framework or treat blocked/unrun checks as passes.
+
+Report fields: changed paths; exact command; status; observed result; failures; blocked or unrun checks and reason; remaining risks. State whether a local-only smoke/API/regression test applied and why. Future tests require an explicitly available non-production local WordPress instance and isolated local data; cover relevant authorized/unauthorized behavior, invalid input, output, and regressions. Never substitute production or an unapproved remote target.

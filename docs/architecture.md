@@ -1,29 +1,17 @@
-# Initial Architecture
+# Architecture and Status
 
-User -> wordpress-orchestrator -> specialized agents -> validation -> WordPress/MCP
+## Local workflow
 
-MCP adapter:
-- WordPress plugin: `wp-content/plugins/webotto-mcp-adapter/webotto-mcp-adapter.php`
-- REST endpoint: `/wp-json/mcp/mcp-adapter-default-server`
-- Access model: authenticated WordPress REST request with `manage_options`
+`User -> wordpress-orchestrator -> developer -> applicable security review -> QA/tests -> final diff review -> Git and Engram -> report`
 
-Initial agents:
-- wordpress-orchestrator
-- wordpress-developer
-- wordpress-security
-- wordpress-qa
+The orchestrator owns scope, delegation, integration, and reporting. Existing role Markdown is authoritative; three project-local Codex agent files point to those roles. Project-local model pins are `gpt-6-astra`/low for the orchestrator, `gpt-6-sol`/medium for development, `gpt-6-astra`/low for security, and `gpt-6-luna`/high for QA. Account and client entitlement is unverified.
 
-Model routing:
-- Policy: `agents/model-policy.yml`
-- wordpress-orchestrator: `reasoning`
-- wordpress-developer: `coding`
-- wordpress-security: `security`
-- wordpress-qa: `testing`
+Codex must trust this project to load `.codex/config.toml`. When it is not trusted, project configuration is ignored and a mismatched global `wordpress` server may remain effective. Do not launch Codex until the trusted project-local layer is confirmed. No global configuration was altered.
 
-The profiles are Gentle AI routing roles. The Gentle AI runtime must map each profile to a concrete model ID; this repository policy does not claim that a specific model is available.
+## Integration boundary
 
-Future agents:
-- wordpress-seo
-- wordpress-content
-- wordpress-woocommerce
-- wordpress-performance
+`MCP/PREPARED, NOT CONNECTED`. Project configuration points a stdio launcher at the fixed papaotto.com endpoint. The launcher reads ignored local `.env`; it is not loaded by Codex automatically. No remote connection or test was made, and no production writes or deployment occurred. Credentials must be supplied locally for a dedicated account with the required admin capability and an application password; never commit or share them in chat.
+
+The adapter source at `wp-content/plugins/webotto-mcp-adapter/webotto-mcp-adapter.php` handles initialization and `tools/list`, returns an empty tool list, and does not implement `tools/call`. Therefore MCP currently provides zero WordPress actions. The logical profiles in `agents/model-policy.yml` are Gentle-AI profiles, not Codex model IDs.
+
+Use the [QA procedure](qa.md) for local-only checks and the [MCP notes](../mcp/README.md) for setup boundaries. No production or external service was contacted as part of this architecture verification.

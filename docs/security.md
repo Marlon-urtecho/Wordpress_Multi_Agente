@@ -1,0 +1,5 @@
+# Security Review
+
+Review only applicable surfaces and trace input to privileged actions, storage, remote requests, and output. Check authentication and authorization separately; capabilities; nonces and CSRF; input validation/sanitization; context-appropriate escaping and XSS; SQL preparation; upload type, path, and storage; REST methods, permissions, and disclosure; AJAX permissions; secret exposure; and remote-request allowlists, timeouts, and response validation. Future MCP tools require authorization, validated inputs, and validated/escaped outputs before exposure.
+
+Each finding records severity, file and line evidence, impact, and remediation. State reviewed entry points, unreviewed areas, tests actually run, and runtime assumptions. Redact potential secret values from findings and logs. A clean bounded review is not a security certification; do not rewrite unrelated behavior.

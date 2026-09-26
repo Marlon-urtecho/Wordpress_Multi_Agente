@@ -1,0 +1,8 @@
+model = "gpt-6-astra"
+model_reasoning_effort = "low"
+
+[mcp_servers.wordpress]
+command = "pwsh"
+args = ["-NoProfile", "-File", "scripts/start-wordpress-mcp.ps1"]
+cwd = "."
+default_tools_approval_mode = "prompt"
