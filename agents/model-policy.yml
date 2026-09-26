@@ -1,0 +1,22 @@
+version: 1
+provider: gentle-ai
+
+profiles:
+  reasoning:
+    purpose: orchestration, planning, and conflict resolution
+  coding:
+    purpose: WordPress implementation and code changes
+  security:
+    purpose: threat analysis and security review
+  testing:
+    purpose: validation, regression checks, and test design
+
+agents:
+  wordpress-orchestrator:
+    profile: reasoning
+  wordpress-developer:
+    profile: coding
+  wordpress-security:
+    profile: security
+  wordpress-qa:
+    profile: testing
